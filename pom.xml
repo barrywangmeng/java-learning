@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>cn.barrywangmeng.scriptEngine</groupId>
-    <artifactId>scriptEngine</artifactId>
+    <groupId>cn.barrywangmeng.java-learning</groupId>
+    <artifactId>javaLearning</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>scriptEngine</name>
+    <name>javaLearning</name>
 
     <modules>
-        <module>test-script-engine</module>
+        <module>java-learning</module>
     </modules>
 
     <properties>
