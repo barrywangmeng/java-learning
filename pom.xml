@@ -41,7 +41,18 @@
                 <artifactId>jsoup</artifactId>
                 <version>1.10.3</version>
             </dependency>
-
+            <!-- 学习使用guava cache-->
+            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>24.0-jre</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>3.2.18.RELEASE</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
