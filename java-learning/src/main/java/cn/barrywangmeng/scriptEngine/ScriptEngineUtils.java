@@ -1,4 +1,4 @@
-package cn.barrywangmeng.javaLearning.engine;
+package cn.barrywangmeng.scriptEngine;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
