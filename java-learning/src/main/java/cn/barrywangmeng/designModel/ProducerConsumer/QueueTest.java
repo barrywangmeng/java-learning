@@ -1,4 +1,4 @@
-package cn.barrywangmeng.DesignModel.ProducerConsumer;
+package cn.barrywangmeng.designModel.ProducerConsumer;
 
 import java.util.PriorityQueue;
 
