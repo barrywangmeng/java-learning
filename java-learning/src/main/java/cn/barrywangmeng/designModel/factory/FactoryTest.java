@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import cn.barrywangmeng.designModel.factory.easyFactory.Fruit;
 import cn.barrywangmeng.designModel.factory.easyFactory.Gardener;
+import cn.barrywangmeng.designModel.factory.factoryMethod.ExportFactory;
+import cn.barrywangmeng.designModel.factory.factoryMethod.ExportFile;
+import cn.barrywangmeng.designModel.factory.factoryMethod.ExportHtmlFactory;
 
 public class FactoryTest {
 
@@ -26,5 +29,23 @@ public class FactoryTest {
 
         Fruit fruit1 = Gardener.getFruit("cn.barrywangmeng.designModel.factory.easyFactory.Grape");
         fruit1.grow();
+    }
+
+    @Test
+    public void testFactoryMethod() {
+        /**
+         * 工厂模式方法就是类的创建模式。
+         * 工厂方法模式的用意是定义一个创建产品对象的工厂接口，将实际创建工厂推迟到子类中。
+         * 工厂方法模式是对简单工厂进一步抽象的结果。
+         * 工厂方法模式涉及的角色：
+         * 1，抽象工厂角色
+         * 2，具体工厂角色
+         * 3，抽象导出角色
+         * 4，具体导出角色
+         */
+        String data = "";
+        ExportFactory exportFactory = new ExportHtmlFactory();
+        ExportFile financial = exportFactory.factory("financial");
+        financial.export(data);
     }
 }
