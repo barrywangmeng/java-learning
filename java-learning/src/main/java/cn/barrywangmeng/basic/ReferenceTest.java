@@ -3,6 +3,7 @@ package cn.barrywangmeng.basic;
 /**
  * 源于小米的一道笔试题
  * 考察引用传递
+ * 可以查看自己分析的一篇文章：http://www.cnblogs.com/wang-meng/p/8685948.html
  */
 public class ReferenceTest {
 
