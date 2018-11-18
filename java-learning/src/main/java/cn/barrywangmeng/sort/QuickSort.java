@@ -48,6 +48,6 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        quickSort(new int[]{3, 5, 2, 1, 6});
+        quickSort(new int[]{3, 5, 2, 10, 6, 9, 20});
     }
 }

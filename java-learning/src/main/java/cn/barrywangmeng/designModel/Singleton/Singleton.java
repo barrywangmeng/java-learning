@@ -1,4 +1,4 @@
-package cn.barrywangmeng.designModel.Singleton;
+package cn.barrywangmeng.designModel.singleton;
 
 /**
  * 创建一个线程安全的单例，这里用了double check

@@ -21,6 +21,13 @@ public class Singleton {
     }
 
     /**
+     * 第一个singletone==null存在的意义：
+     * 这里就涉及一个性能问题了，因为对于单例模式的话，new SingleTon（）只需要执行一次就 OK 了，
+     * 而如果没有第一重 singleTon == null 的话，每一次有线程进入 getInstance（）时，均会执行锁定操作来实现线程同步，
+     * 这是非常耗费性能的，而如果我加上第一重 singleTon == null 的话，
+     * 那么就只有在第一次，也就是 singleTton ==null 成立时的情况下执行一次锁定以实现线程同步，
+     * 而以后的话，便只要直接返回 Singleton 实例就 OK 了而根本无需再进入 lock 语句块了，这样就可以解决由线程同步带来的性能问题了。
+     *
      * 第二种方式使用了double check
      * 但是这里仍然可能存在问题，双重锁可能不能正常运行
      * 具体原因如下：
