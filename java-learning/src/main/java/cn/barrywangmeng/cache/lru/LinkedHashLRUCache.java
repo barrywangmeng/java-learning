@@ -20,6 +20,7 @@ public class LinkedHashLRUCache<K, V> implements LRUCache<K, V> {
             this.limit = limit ;
         }
 
+        //实现remove元素的方法，这个是重写了LinkedHashMap中的方法。因为在HashMap的putVal会调用afterNodeInsertion(), 而这个方法会判断removeEldestEntry方法。
         @Override
         protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
             return  size() > limit;
@@ -28,7 +29,7 @@ public class LinkedHashLRUCache<K, V> implements LRUCache<K, V> {
 
 
     private final int limit;
-    //使用组合关系犹豫继承，这里只对外暴漏LRUCache中的方法
+    //使用组合关系优于继承，这里只对外暴漏LRUCache中的方法
     private final InternalLRUCache<K, V> internalLRUCache;
     public LinkedHashLRUCache(int limit) {
         Preconditions.checkArgument(limit > 0, "The limit big than zero.");
