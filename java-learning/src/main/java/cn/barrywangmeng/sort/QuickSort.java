@@ -33,13 +33,13 @@ public class QuickSort {
             while (low < high && sortItems[high] > temp) {
                 high--;
             }
-            sortItems[low] = sortItems[high];
+            sortItems[low++] = sortItems[high];
 
             //再从左往右找，如果小于temp则继续找，直到找到大于temp的值
             while (low < high && sortItems[low] < temp) {
                 low++;
             }
-            sortItems[high] = sortItems[low];
+            sortItems[high--] = sortItems[low];
         }
 
         sortItems[low] = temp;
@@ -48,6 +48,6 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        quickSort(new int[]{3, 5, 2, 10, 6, 9, 20});
+        quickSort(new int[]{3, 5, 2, 10, 6, 9, 3});
     }
 }

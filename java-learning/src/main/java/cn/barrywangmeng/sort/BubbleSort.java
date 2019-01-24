@@ -8,10 +8,10 @@ package cn.barrywangmeng.sort;
  * 则冒泡排序过程可在此趟扫描后就终止，基于这种考虑，提出了第一种改进的算法。
  */
 public class BubbleSort {
-    public static void bubbleSort(int[] sortItems) {
-        int size = sortItems.length;
-        for (int i = 0; i < size - 1; i++) {
-            for (int j = 0; j < size - 1 - i; j++) {
+    private static void bubbleSort(int[] sortItems) {
+        int length = sortItems.length;
+        for (int i = 0; i < length - 1; i++) {
+            for (int j = 0; j < length - i - 1; j++) {
                 if (sortItems[j] > sortItems[j + 1]) {
                     int temp = sortItems[j + 1];
                     sortItems[j + 1] = sortItems[j];
