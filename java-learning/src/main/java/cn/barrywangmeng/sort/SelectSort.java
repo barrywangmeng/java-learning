@@ -9,6 +9,24 @@ package cn.barrywangmeng.sort;
  * @Date: 2019/1/24-20:36
  */
 public class SelectSort {
+    public static int binSearch(int srcArray[], int start, int end, int key) {
+        int mid = (end - start) / 2 + start;
+        int midValue = srcArray[mid];
+        if (midValue == key) {
+            return mid;
+        }
+
+        if (start > end) {
+            return -1;
+        }
+
+        if (midValue < key) {
+            return binSearch(srcArray, mid + 1, end, key);
+        } else {
+            return binSearch(srcArray, 0, mid - 1, key);
+        }
+    }
+
     private static void selectSort(int[] sortItems) {
         int length = sortItems.length;
         int minIndex = 0;
@@ -33,5 +51,8 @@ public class SelectSort {
 
     public static void main(String[] args) {
         selectSort(new int[]{3, 5, 2, 1, 6});
+
+        int srcArray[] = {3,5,11,17,21,23,28,30,32,50,64,78,81,95,101};
+        System.out.println(binSearch(srcArray, 0, srcArray.length - 1, 81));
     }
 }
