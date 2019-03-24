@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] - %level - %logger : %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/logs/java-learning/server.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/data/logs/java-learning/server.%d.zip</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf8</charset>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] - %level - %logger : %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- ERROR级别和WARN级别各自一个文件 -->
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/logs/java-learning/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/data/logs/java-learning/error.%d.zip</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <charset>utf8</charset>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] - %level - %logger : %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/logs/java-learning/warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/data/logs/java-learning/warn.%d.zip</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <charset>utf8</charset>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] - %level - %logger : %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- Druid的SQL防火墙一个文件 -->
+    <appender name="DruidWallFilter" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/logs/java-learning/druidWallFilter.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/data/logs/java-learning/druidWallFilter.log.%d.zip</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf8</charset>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] - %level : %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.alibaba.druid.wall.WallFilter" level="INFO" additivity="false">
+        <appender-ref ref="DruidWallFilter"/>
+    </logger>
+    <root level="INFO">
+        <appender-ref ref="file"/>
+        <appender-ref ref="console"/>
+        <appender-ref ref="warn"/>
+        <appender-ref ref="error"/>
+    </root>
+</configuration>
