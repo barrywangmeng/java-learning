@@ -1,5 +1,7 @@
 package cn.barrywangmeng.thread;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,15 +14,14 @@ import java.util.concurrent.TimeUnit;
  * 测试singleThreadPool异常问题
  *
  * @author: wangmeng
- * @date: 2019/3/24 11:56
+ * @date: 2019/3/25 23:40
  */
 public class ThreadPoolException {
     private final static Logger LOGGER = LoggerFactory.getLogger(ThreadPoolException.class);
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService execute = new ThreadPoolExecutor(1, 1,
-                0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>());
+                0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(), new ThreadFactoryBuilder().setUncaughtExceptionHandler(new MyHandler()).build());
 
         execute.execute(new Runnable() {
             @Override
@@ -30,8 +31,6 @@ public class ThreadPoolException {
         });
 
         TimeUnit.SECONDS.sleep(5);
-
-
         execute.execute(new Run1());
     }
 
@@ -58,5 +57,13 @@ public class ThreadPoolException {
                 }
             }
         }
+    }
+}
+
+class MyHandler implements Thread.UncaughtExceptionHandler {
+    private final static Logger LOGGER = LoggerFactory.getLogger(MyHandler.class);
+    @Override
+    public void uncaughtException(Thread t, Throwable e) {
+        LOGGER.error("threadId = {}, threadName = {}, ex = {}", t.getId(), t.getName(), e.getMessage());
     }
 }
