@@ -18,5 +18,15 @@ public class LinkedHashLRUTest {
 
         System.out.println(cache.get("2"));
         System.out.println(cache);
+
+        // 测试linkedHashMap中的accessOrder属性
+//        LinkedHashMap<Integer, Integer> map = new LinkedHashMap(16, 0.75f, true);
+//        map.put(19, 19);
+//        map.put(3, 3);
+//        map.put(35, 35);
+//        map.put(7, 7);
+//
+//        Integer integer = map.get(35);
+//        System.out.println(JSON.toJSONString(map));
     }
 }
