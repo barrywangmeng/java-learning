@@ -1,4 +1,4 @@
-package cn.barrywangmeng.thread;
+package cn.barrywangmeng.concurrent;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;

@@ -1,4 +1,4 @@
-package cn.barrywangmeng.thread.juc;
+package cn.barrywangmeng.concurrent.juc;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;

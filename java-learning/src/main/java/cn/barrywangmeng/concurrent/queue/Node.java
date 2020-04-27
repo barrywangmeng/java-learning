@@ -1,4 +1,4 @@
-package cn.barrywangmeng.thread.queue;
+package cn.barrywangmeng.concurrent.queue;
 
 /**
  * @Description:

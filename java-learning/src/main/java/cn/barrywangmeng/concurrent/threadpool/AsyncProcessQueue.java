@@ -1,4 +1,4 @@
-package cn.barrywangmeng.thread.threadpool;
+package cn.barrywangmeng.concurrent.threadpool;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

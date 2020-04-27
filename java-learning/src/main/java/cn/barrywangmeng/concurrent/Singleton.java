@@ -1,4 +1,4 @@
-package cn.barrywangmeng.thread;
+package cn.barrywangmeng.concurrent;
 
 /**
  * 这里来记录单例模式的线程安全问题

@@ -1,4 +1,4 @@
-package cn.barrywangmeng.thread.juc;
+package cn.barrywangmeng.concurrent.juc;
 
 import java.util.Random;
 import java.util.concurrent.CyclicBarrier;

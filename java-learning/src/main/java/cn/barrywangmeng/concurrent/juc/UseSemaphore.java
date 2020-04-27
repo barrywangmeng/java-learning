@@ -1,4 +1,4 @@
-package cn.barrywangmeng.thread.juc;
+package cn.barrywangmeng.concurrent.juc;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

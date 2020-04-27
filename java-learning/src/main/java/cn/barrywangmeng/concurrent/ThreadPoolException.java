@@ -1,4 +1,4 @@
-package cn.barrywangmeng.thread;
+package cn.barrywangmeng.concurrent;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 

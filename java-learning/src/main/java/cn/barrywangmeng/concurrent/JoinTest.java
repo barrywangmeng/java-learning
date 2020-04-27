@@ -1,4 +1,4 @@
-package cn.barrywangmeng.thread;
+package cn.barrywangmeng.concurrent;
 
 /**
  * 这里是用来测试学习多线程关键字join
