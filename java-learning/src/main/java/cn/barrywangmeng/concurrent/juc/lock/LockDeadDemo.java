@@ -1,4 +1,4 @@
-package cn.barrywangmeng.lock;
+package cn.barrywangmeng.concurrent.juc.lock;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;

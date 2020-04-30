@@ -1,4 +1,4 @@
-package cn.barrywangmeng.lock;
+package cn.barrywangmeng.concurrent.juc.lock;
 
 /**
  * @Description: 模拟synchronize死锁案例
