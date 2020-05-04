@@ -13,12 +13,7 @@ public class ThreadLocalTest {
 
     private List<String> messages = Lists.newArrayList();
 
-    public static final ThreadLocal<ThreadLocalTest> holder = new ThreadLocal(){
-        @Override
-        protected Object initialValue() {
-            return new ThreadLocalTest();
-        }
-    };
+    public static final ThreadLocal<ThreadLocalTest> holder = ThreadLocal.withInitial(ThreadLocalTest::new);
 
     public static void add(String message) {
         holder.get().messages.add(message);

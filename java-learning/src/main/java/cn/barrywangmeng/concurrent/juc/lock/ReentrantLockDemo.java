@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * ReentrantLock 实现源码学习
- * @author wangmeng2
+ * @author 一枝花算不算浪漫
  * @date 2020/4/28 7:20
  */
 public class ReentrantLockDemo {
