@@ -28,10 +28,8 @@ public class ThreadLocalTest {
     }
 
     public static void main(String[] args) {
-        ThreadLocalTest.add("1111");
-        ThreadLocalTest.add("2222");
-
-        List<String> clear = ThreadLocalTest.clear();
-        System.out.println(clear.toString());
+        ThreadLocalTest.add("一枝花算不算浪漫");
+        System.out.println(holder.get().messages);
+        ThreadLocalTest.clear();
     }
 }

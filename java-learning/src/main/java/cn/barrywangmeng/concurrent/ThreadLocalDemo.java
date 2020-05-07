@@ -1,45 +1,60 @@
 package cn.barrywangmeng.concurrent;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.lang.reflect.Field;
 
 /**
- * @Description:
+ * @Description: 测试ThreadLocal内存泄漏情况
  * @Author: wangmeng
  * @Date: 2018/12/16-10:54
  */
 public class ThreadLocalDemo {
 
-    private static AtomicInteger nextHashCode =
-            new AtomicInteger();
+    private static final int HASH_INCREMENT = 0x61c88647;
 
-    public static void main(String[] args) throws InterruptedException {
-        nextHashCode.getAndAdd(10);
-        System.out.println(nextHashCode.get());
-        nextHashCode.getAndAdd(10);
-        System.out.println(nextHashCode.get());
-        ThreadLocal<Object> threadLocal = new InheritableThreadLocal<>();
-        threadLocal.set(1L);
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException, InterruptedException {
+//        Thread t = new Thread(()->test("abc",false));
+//        t.start();
+//        t.join();
+//        System.out.println("--gc后--");
+//        Thread t2 = new Thread(() -> test("def", true));
+//        t2.start();
+//        t2.join();
 
-        new Thread() {
-            @Override
-            public void run() {
-                System.out.println("main父线程：" + threadLocal.get());
-                threadLocal.set(2L);
-                System.out.println("线程1：" + threadLocal.get());
+        int hashCode = 0;
+        for(int i=0; i< 32; i++){
+            hashCode = i * HASH_INCREMENT+HASH_INCREMENT;//每次递增HASH_INCREMENT
+            System.out.println(i + ":" + (hashCode & (16-1)));
+        }
+    }
+
+    private static void test(String s,boolean isGC)  {
+        try {
+            ThreadLocal<Object> threadLocal = new ThreadLocal<>();
+            threadLocal.set(s);
+            if (isGC) {
+                System.gc();
             }
-        }.start();
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                threadLocal.set(2L);
-//                System.out.println("线程2：" + threadLocal.get());
-//            }
-//        }.start();
-
-        Thread.sleep(1000);
-        System.out.println("main线程 threadLocal2：" + threadLocal.get());
-        ThreadLocal<Long> threadLocal2 = new ThreadLocal<>();
-        threadLocal2.set(10L);
-        System.out.println("main线程 threadLocal2：" + threadLocal2.get());
+            Thread t = Thread.currentThread();
+            Class<? extends Thread> clz = t.getClass();
+            Field field = clz.getDeclaredField("threadLocals");
+            field.setAccessible(true);
+            Object threadLocalMap = field.get(t);
+            Class<?> tlmClass = threadLocalMap.getClass();
+            Field tableField = tlmClass.getDeclaredField("table");
+            tableField.setAccessible(true);
+            Object[] arr = (Object[]) tableField.get(threadLocalMap);
+            for (Object o : arr) {
+                if (o != null) {
+                    Class<?> entryClass = o.getClass();
+                    Field valueField = entryClass.getDeclaredField("value");
+                    Field referenceField = entryClass.getSuperclass().getSuperclass().getDeclaredField("referent");
+                    valueField.setAccessible(true);
+                    referenceField.setAccessible(true);
+                    System.out.println(String.format("弱引用key:%s,值:%s", referenceField.get(o), valueField.get(o)));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

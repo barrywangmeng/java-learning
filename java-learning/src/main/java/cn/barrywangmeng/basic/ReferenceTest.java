@@ -1,5 +1,10 @@
 package cn.barrywangmeng.basic;
 
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
+import java.util.WeakHashMap;
+
 /**
  * 源于小米的一道笔试题
  * 考察引用传递
@@ -7,18 +12,41 @@ package cn.barrywangmeng.basic;
  */
 public class ReferenceTest {
 
-    private static void change(StringBuffer str11, StringBuffer str12) {
+    public static void main(String[] args) throws Exception{
+        ReferenceQueue<User> referenceQueue = new ReferenceQueue();
+        SoftReference softReference = new SoftReference(new User("zhangsan",24), referenceQueue);
 
-        str12 = str11;
-        str11 = new StringBuffer("new world");
-        str12.append("new world");
+        //手动触发GC
+        System.gc();
+        Thread.sleep(1000);
+        System.out.println("手动触发GC:" + softReference.get());
+        System.out.println("手动触发的队列:" + referenceQueue.poll());
+        //通过堆内存不足触发GC
+        makeHeapNotEnough();
+        System.out.println("通过堆内存不足触发GC:" + softReference.get());
+        System.out.println("通过堆内存不足触发GC:" + referenceQueue.poll());
+
+        WeakReference weakReference = new WeakReference(new User("zhangsan",24));
+        System.gc();
+        System.out.println("手动触发GC:" + weakReference.get());
+
+        WeakHashMap<User, String> weakHashMap = new WeakHashMap();
+        //强引用
+        User zhangsan = new User("zhangsan", 24);
+        weakHashMap.put(zhangsan, "zhangsan");
+        System.gc();
+        System.out.println("有强引用的时候:map大小" + weakHashMap.size());
+        //去掉强引用
+        zhangsan = null;
+        System.gc();
+        Thread.sleep(1000);
+        System.out.println("无强引用的时候:map大小"+weakHashMap.size());
+
     }
 
-    public static void main(String[] args) {
-        StringBuffer str1 = new StringBuffer("good ");
-        StringBuffer str2 = new StringBuffer("bad ");
-        change(str1, str2);
-        System.out.println(str1.toString());
-        System.out.println(str2.toString());
+    private static void makeHeapNotEnough() {
+        SoftReference softReference = new SoftReference(new byte[1024*1024*5]);
+        byte[] bytes = new byte[1024*1024*5];
+
     }
 }
