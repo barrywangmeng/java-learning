@@ -23,8 +23,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @Description
- * @Author wangmeng
+ * @Description netty聊天室 参考：http://www.imooc.com/read/82/article/2166
+ *
+ * @Author 一枝花算不算浪漫
  * @Date 2020/8/10 6:52 上午
  */
 public final class NettyChatServer {
@@ -32,13 +33,13 @@ public final class NettyChatServer {
     static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
 
     public static void main(String[] args) throws Exception {
-        // 1. 声明线程池
+        // 1. EventLoopGroup
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
             // 2. 服务端引导器
             ServerBootstrap serverBootstrap = new ServerBootstrap();
-            // 3. 设置线程池
+            // 3. 设置线bootStrap信息
             serverBootstrap.group(bossGroup, workerGroup)
                     // 4. 设置ServerSocketChannel的类型
                     .channel(NioServerSocketChannel.class)
@@ -53,7 +54,6 @@ public final class NettyChatServer {
                             ChannelPipeline p = ch.pipeline();
                             // 可以添加多个子Handler
                             p.addLast(new LoggingHandler(LogLevel.INFO));
-                            // 只需要改这一个地方就可以了
                             p.addLast(new ChatNettyHandler());
                         }
                     });
@@ -68,10 +68,10 @@ public final class NettyChatServer {
             workerGroup.shutdownGracefully();
         }
     }
-    private static class ChatNettyHandler extends SimpleChannelInboundHandler<ByteBuf> {
 
+    private static class ChatNettyHandler extends SimpleChannelInboundHandler<ByteBuf> {
         @Override
-        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        public void channelActive(ChannelHandlerContext ctx) {
             System.out.println("one conn active: " + ctx.channel());
             // channel是在ServerBootstrapAcceptor中放到EventLoopGroup中的
             ChatHolder.join((SocketChannel) ctx.channel());
@@ -92,7 +92,7 @@ public final class NettyChatServer {
         }
 
         @Override
-        public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        public void channelInactive(ChannelHandlerContext ctx) {
             System.out.println("one conn inactive: " + ctx.channel());
             ChatHolder.quit((SocketChannel) ctx.channel());
         }
